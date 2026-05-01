@@ -1493,3 +1493,247 @@ body{background-color:var(--bg-primary);color:var(--text-primary);overflow-x:hid
 /* ===== SCROLL LOCK WHEN SIDEBAR OPEN ===== */
 body.sidebar-is-open { overflow: hidden; }
 
+
+/* ==========================================================
+   FINAL FIX — FILTERS + UPLOAD FORM — ALL 3 DASHBOARDS
+   ========================================================== */
+
+/* ===== FILTER CLOSE BUTTON in sidebar header ===== */
+.filter-close-btn {
+  display: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(239,68,68,0.15);
+  color: #ef4444;
+  font-size: 14px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+.filter-close-btn:hover { background: rgba(239,68,68,0.3); }
+
+@media (max-width: 900px) {
+  .filter-close-btn { display: flex; }
+}
+
+/* ===== FILTER SIDEBAR — COMPLETE MOBILE SLIDE FIX ===== */
+@media (max-width: 900px) {
+
+  /* Main layout */
+  .main-container {
+    flex-direction: column !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+  .content-area {
+    margin-left: 0 !important;
+    padding: 10px !important;
+    width: 100% !important;
+  }
+
+  /* Sidebar: slide in from left as drawer */
+  .filters-sidebar {
+    position: fixed !important;
+    top: 0 !important;
+    left: -105% !important;
+    width: min(300px, 82vw) !important;
+    max-width: none !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
+    z-index: 1200 !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    transition: left 0.3s cubic-bezier(0.4,0,0.2,1) !important;
+    border-right: 2px solid rgba(201,162,39,0.3) !important;
+    border-bottom: none !important;
+    padding: 0 !important;
+    display: block !important;
+    box-shadow: none !important;
+  }
+  .filters-sidebar.sidebar-open {
+    left: 0 !important;
+    box-shadow: 8px 0 40px rgba(0,0,0,0.5) !important;
+  }
+
+  /* Sidebar inner padding — push content below sticky header */
+  .filters-sidebar .filter-section {
+    padding: 12px 14px !important;
+    border-bottom: 1px solid var(--border) !important;
+    margin-bottom: 0 !important;
+  }
+  .filters-sidebar .filters-header {
+    position: sticky !important;
+    top: 0 !important;
+    background: var(--bg-secondary) !important;
+    z-index: 10 !important;
+    padding: 14px 14px 12px !important;
+    border-bottom: 2px solid var(--border) !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+  }
+  .filters-sidebar .apply-filters-btn {
+    position: sticky !important;
+    bottom: 0 !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    z-index: 5 !important;
+    width: 100% !important;
+    padding: 14px !important;
+    font-size: 14px !important;
+  }
+
+  /* Filter select/input tap targets */
+  .filters-sidebar .filter-select { min-height: 42px !important; font-size: 14px !important; }
+  .filters-sidebar .filter-options { display: flex !important; flex-direction: column !important; gap: 6px !important; }
+  .filters-sidebar .filter-checkbox { min-height: 34px !important; font-size: 13px !important; }
+  .filters-sidebar .radio-group { display: flex !important; flex-direction: column !important; gap: 5px !important; }
+  .filters-sidebar .radio-label { min-height: 32px !important; font-size: 13px !important; display: flex; align-items: center; }
+  .filters-sidebar .price-range { flex-direction: column !important; gap: 8px !important; }
+  .filters-sidebar .price-range input { width: 100% !important; font-size: 14px !important; padding: 9px 12px !important; }
+  .filters-sidebar .add-area-input { display: flex !important; gap: 6px !important; margin-top: 8px !important; }
+  .filters-sidebar .add-area-input input { font-size: 14px !important; }
+
+  /* Filter toggle button — show on mobile */
+  .filter-toggle-btn {
+    display: flex !important;
+    position: relative !important;
+    bottom: auto !important;
+    right: auto !important;
+    width: calc(100% - 24px) !important;
+    margin: 10px 12px 0 !important;
+    justify-content: center !important;
+    border-radius: 12px !important;
+    padding: 12px 20px !important;
+    font-size: 14px !important;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.15) !important;
+    min-width: auto !important;
+  }
+
+  /* Overlay behind sidebar */
+  .sidebar-overlay {
+    position: fixed !important;
+    inset: 0 !important;
+    background: rgba(0,0,0,0.55) !important;
+    z-index: 1199 !important;
+    display: none !important;
+    backdrop-filter: blur(2px) !important;
+  }
+  .sidebar-overlay.active { display: block !important; }
+
+  /* Scroll lock */
+  body.sidebar-is-open { overflow: hidden !important; }
+}
+
+/* ===== MOBILE SECTION TABS (Data Collector only) ===== */
+.mobile-section-tabs {
+  display: none;
+  gap: 0;
+  margin: 10px 12px 0;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--bg-secondary);
+}
+.mob-tab {
+  flex: 1;
+  padding: 11px 8px;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.mob-tab.active {
+  background: var(--primary);
+  color: #000;
+}
+.mob-tab:not(.active):hover {
+  background: rgba(201,162,39,0.1);
+}
+
+@media (max-width: 900px) {
+  .mobile-section-tabs { display: flex; }
+}
+@media (min-width: 901px) {
+  .mobile-section-tabs { display: none !important; }
+}
+
+/* ===== UPLOAD FORM — MOBILE DISPLAY FIX ===== */
+@media (max-width: 900px) {
+  #uploadSection {
+    display: block !important;  /* always block — JS controls visibility via style */
+    padding: 0 !important;
+  }
+  .upload-form {
+    padding: 14px !important;
+    border-radius: 14px !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  .upload-form h2 { font-size: 1.1rem !important; margin-bottom: 1rem !important; }
+  .form-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px !important;
+  }
+  .image-slots-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 8px !important; }
+  .amenities-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 8px !important; }
+  #nearestPointSection { padding: 12px !important; }
+  .btn-upload { padding: 13px !important; font-size: 14px !important; }
+}
+
+@media (max-width: 600px) {
+  .upload-form { padding: 10px !important; border-radius: 12px !important; }
+  .upload-form h2 { font-size: 1rem !important; }
+  .form-grid {
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+  }
+  .form-group.full-width,
+  .section-heading,
+  .section-divider,
+  .image-upload-section,
+  .video-upload-section { grid-column: span 1 !important; }
+  .form-group input,
+  .form-group select,
+  .form-group textarea { font-size: 16px !important; padding: 10px 12px !important; }
+  .form-group textarea { height: 80px !important; }
+  .form-group label { font-size: 12px !important; }
+  .image-slots-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 6px !important; }
+  .amenities-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 6px !important; }
+  .section-heading { font-size: 13px !important; }
+  .add-area-input { flex-wrap: wrap; }
+  .add-area-input input { font-size: 14px !important; }
+  #nearestPointSection select,
+  #nearestPointSection input { font-size: 14px !important; }
+  .btn-upload { font-size: 14px !important; padding: 12px !important; border-radius: 10px !important; }
+  .video-tabs { flex-wrap: wrap; gap: 5px; }
+  .video-tab-btn { font-size: 11px; padding: 7px 12px; }
+}
+
+@media (max-width: 380px) {
+  .form-grid { grid-template-columns: 1fr !important; }
+  .amenities-grid { grid-template-columns: 1fr 1fr !important; }
+  .image-slots-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .add-area-input { flex-direction: column; }
+  .add-area-input button { width: 100%; }
+}
+
+/* ===== NAVBAR TOP MARGIN — all dashboards ===== */
+@media (max-width: 900px) {
+  .main-container { margin-top: 0 !important; padding-top: 8px !important; }
+}
+

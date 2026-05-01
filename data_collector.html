@@ -203,6 +203,17 @@
     </div>
 
     <!-- Filter Toggle Button (mobile) -->
+    <!-- Mobile Section Tabs -->
+    <div class="mobile-section-tabs" id="mobileSectionTabs">
+      <button class="mob-tab active" id="mobTabProperties" onclick="showSection('properties', this); syncMobTabs('properties')">
+        <i class="fas fa-building"></i> Properties
+      </button>
+      <button class="mob-tab" id="mobTabUpload" onclick="showSection('upload', this); syncMobTabs('upload')">
+        <i class="fas fa-upload"></i> Upload Property
+      </button>
+    </div>
+
+    <!-- Filter Toggle (only shown in Properties tab) -->
     <button class="filter-toggle-btn" id="filterToggleBtn" onclick="toggleFilters()">
       <i class="fas fa-filter"></i> <span id="filterToggleLabel">Show Filters</span>
     </button>
@@ -748,10 +759,21 @@
       const si = document.getElementById('navSearchInput'); if (si) si.value = ''; applyFilters(); showToast('Filters cleared');
     }
 
+    function syncMobTabs(section) {
+      const pt = document.getElementById('mobTabProperties');
+      const ut = document.getElementById('mobTabUpload');
+      const ft = document.getElementById('filterToggleBtn');
+      if (pt) pt.classList.toggle('active', section === 'properties');
+      if (ut) ut.classList.toggle('active', section === 'upload');
+      if (ft) ft.style.display = section === 'properties' ? '' : 'none';
+    }
+
     function showSection(section, el) {
-      document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active')); if (el) el.classList.add('active');
+      document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+      if (el && el.classList.contains('nav-link')) el.classList.add('active');
       document.getElementById('propertiesSection').style.display = section === 'properties' ? 'block' : 'none';
       document.getElementById('uploadSection').style.display = section === 'upload' ? 'block' : 'none';
+      syncMobTabs(section);
       if (section === 'properties') applyFilters(); else { loadAreasForUpload(); }
     }
 

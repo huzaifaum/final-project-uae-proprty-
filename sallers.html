@@ -219,8 +219,11 @@
         <div class="main-container">
             <div class="filters-sidebar">
                 <div class="filters-header">
-                    <h3><i class="fas fa-filter"></i> Filters</h3><span class="clear-filters"
-                        onclick="clearAllFilters()"><i class="fas fa-times"></i> Clear All</span>
+                    <h3><i class="fas fa-filter"></i> Filters</h3>
+                    <div style="display:flex;align-items:center;gap:8px">
+                      <span class="clear-filters" onclick="clearAllFilters()"><i class="fas fa-times"></i> Clear All</span>
+                      <button class="filter-close-btn" onclick="closeFilters()"><i class="fas fa-times"></i></button>
+                    </div>
                 </div>
                 <div class="filter-section">
                     <h4><i class="fas fa-city"></i> City</h4><select class="filter-select" id="filterCity"
