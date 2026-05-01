@@ -556,11 +556,37 @@
             const btn = document.getElementById('filterToggleBtn');
             const lbl = document.getElementById('filterToggleLabel');
             if (!sb) return;
-            sb.classList.toggle('sidebar-open');
+            let overlay = document.getElementById('sidebarOverlay');
+            if (!overlay) {
+                overlay = document.createElement('div');
+                overlay.id = 'sidebarOverlay';
+                overlay.className = 'sidebar-overlay';
+                overlay.onclick = () => closeFilters();
+                document.body.appendChild(overlay);
+            }
             const isOpen = sb.classList.contains('sidebar-open');
-            lbl.textContent = isOpen ? 'Hide Filters' : 'Show Filters';
+            if (isOpen) {
+                closeFilters();
+            } else {
+                sb.classList.add('sidebar-open');
+                overlay.classList.add('active');
+                document.body.classList.add('sidebar-is-open');
+                if (lbl) lbl.textContent = 'Hide Filters';
+                if (btn) btn.style.background = '#0d9268';
+            }
         }
-        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeNavDrawer(); });
+        function closeFilters() {
+            const sb = document.querySelector('.filters-sidebar');
+            const btn = document.getElementById('filterToggleBtn');
+            const lbl = document.getElementById('filterToggleLabel');
+            const overlay = document.getElementById('sidebarOverlay');
+            if (sb) sb.classList.remove('sidebar-open');
+            if (overlay) overlay.classList.remove('active');
+            document.body.classList.remove('sidebar-is-open');
+            if (lbl) lbl.textContent = 'Show Filters';
+            if (btn) btn.style.background = '#10b981';
+        }
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeNavDrawer(); if(typeof closeFilters === 'function') closeFilters(); } });
 
         // tawk to plugin code 
         // ============================

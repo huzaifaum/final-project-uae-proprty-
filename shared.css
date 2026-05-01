@@ -1293,3 +1293,203 @@ body{background-color:var(--bg-primary);color:var(--text-primary);overflow-x:hid
   /* Properties header */
   .properties-header { flex-direction: column; align-items: flex-start; gap: 8px; }
 }
+
+/* ===================================================
+   COMPLETE MOBILE RESPONSIVE UPGRADE — ALL 3 DASHBOARDS
+   Filters + Upload Form + Cards + Modals
+   =================================================== */
+
+/* ===== FILTER SIDEBAR OVERLAY ON MOBILE ===== */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  z-index: 899;
+  backdrop-filter: blur(2px);
+}
+.sidebar-overlay.active { display: block; }
+
+/* ===== FILTER TOGGLE BUTTON — Better Styling ===== */
+.filter-toggle-btn {
+  position: fixed !important;
+  bottom: 20px;
+  right: 20px;
+  z-index: 890;
+  width: auto;
+  min-width: 130px;
+  margin: 0 !important;
+  border-radius: 30px !important;
+  box-shadow: 0 4px 20px rgba(201,162,39,0.45);
+  font-size: 13px !important;
+  padding: 11px 20px !important;
+  display: none !important;
+}
+@media (max-width: 900px) {
+  .filter-toggle-btn { display: flex !important; }
+}
+
+/* ===== MOBILE SIDEBAR SLIDE-IN ===== */
+@media (max-width: 900px) {
+  .filters-sidebar {
+    position: fixed !important;
+    top: 0 !important;
+    left: -100% !important;
+    width: 80% !important;
+    max-width: 300px !important;
+    height: 100vh !important;
+    z-index: 900 !important;
+    overflow-y: auto !important;
+    transition: left 0.3s ease !important;
+    border-right: 2px solid var(--border) !important;
+    border-bottom: none !important;
+    padding-top: 60px !important;
+    display: block !important;
+  }
+  .filters-sidebar.sidebar-open {
+    left: 0 !important;
+  }
+
+  /* Close button inside sidebar on mobile */
+  .filters-sidebar .filters-header::after {
+    content: '✕';
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 30px;
+    height: 30px;
+    background: rgba(239,68,68,0.15);
+    color: #ef4444;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .filters-header { position: relative; }
+
+  /* Filters content readable */
+  .filter-section { padding-bottom: 1rem; }
+  .filter-options { max-height: none !important; }
+  .apply-filters-btn { 
+    position: sticky;
+    bottom: 0;
+    margin-bottom: 0;
+    border-radius: 0 !important;
+    z-index: 5;
+  }
+}
+
+/* Upload form responsive rules are handled in data_collector.css */
+
+/* ===== PROPERTY CARD — MOBILE POLISH ===== */
+@media (max-width: 600px) {
+  .property-card { padding: 12px !important; border-radius: 14px !important; }
+  .card-header h1 { font-size: 15px !important; }
+  .card-header p { font-size: 12px !important; }
+  .img-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 5px !important; }
+  .price-row { gap: 6px !important; margin: 10px 0 !important; }
+  .title { font-size: 15px !important; }
+  .price { font-size: 11px !important; padding: 6px 12px !important; }
+  .location-info { gap: 6px !important; padding: 6px 10px !important; }
+  .location-item { font-size: 11px !important; }
+  .property-features { gap: 6px !important; padding: 8px 0 !important; }
+  .feature-item { font-size: 10px !important; padding: 4px 8px !important; }
+  .feature-item i { font-size: 11px !important; }
+  .features { grid-template-columns: repeat(2, 1fr) !important; gap: 5px !important; }
+  .feature { font-size: 10px !important; padding: 5px 7px !important; }
+  .contact { gap: 8px !important; }
+  .numbers { font-size: 12px !important; }
+  .btns { gap: 5px !important; }
+  .btn { font-size: 10px !important; padding: 6px 10px !important; height: 28px !important; gap: 3px !important; }
+  .admin-actions { gap: 4px !important; }
+  .approve-btn, .delete-btn, .status-btn {
+    font-size: 10px !important; padding: 6px 10px !important; height: 28px !important;
+  }
+  .nearest-places-section { padding: 8px !important; }
+  .nearest-places-list { gap: 5px !important; }
+  .nearest-place-chip { font-size: 10px !important; padding: 4px 8px !important; gap: 4px !important; }
+}
+
+/* ===== MAIN CONTAINER MARGIN (accounts for floating filter btn) ===== */
+@media (max-width: 900px) {
+  .content-area { padding-bottom: 80px !important; }
+}
+
+/* ===== FILTER ACTIVE COUNT BADGE ===== */
+.filter-active-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #ef4444;
+  color: #fff;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  font-size: 10px;
+  font-weight: 700;
+  margin-left: 4px;
+  display: none;
+}
+.filter-active-count.visible { display: inline-flex; }
+
+/* ===== ADMIN DASHBOARD — MOBILE ===== */
+@media (max-width: 600px) {
+  .properties-header h2 { font-size: 1rem !important; }
+  .properties-header .sort-select,
+  .properties-header select { font-size: 13px !important; padding: 6px 10px !important; }
+}
+
+/* ===== DATA COLLECTOR UPLOAD SECTION MOBILE ===== */
+@media (max-width: 600px) {
+  #uploadSection { padding: 0 !important; }
+  .nearest-points-container { gap: 6px !important; }
+  .np-item { padding: 6px 10px !important; font-size: 11px !important; }
+}
+
+/* ===== SALLERS DASHBOARD — MOBILE ===== */
+@media (max-width: 600px) {
+  /* Sallers-specific stats or table */
+  .stats-row { flex-direction: column !important; gap: 8px !important; }
+  .stat-card { min-width: unset !important; width: 100% !important; }
+}
+
+/* ===== SUB-NAVBAR MOBILE FIX ===== */
+@media (max-width: 480px) {
+  .sub-navbar {
+    top: 56px !important;
+    padding: 6px 10px !important;
+    min-height: auto !important;
+  }
+  .sub-navbar .sub-search-wrap {
+    padding: 6px 12px !important;
+  }
+  .sub-navbar .sub-search-wrap input {
+    font-size: 14px !important; /* no zoom on iOS */
+  }
+}
+
+/* ===== LIGHTBOX MOBILE ===== */
+@media (max-width: 480px) {
+  .img-lightbox { padding: 10px !important; }
+  .lb-close { top: 10px !important; right: 10px !important; width: 36px !important; height: 36px !important; }
+  .lb-main-wrap { gap: 4px !important; }
+  .lb-arrow { width: 30px !important; height: 30px !important; font-size: 13px !important; }
+  .lb-thumbs { gap: 5px !important; }
+  .lb-thumb { width: 50px !important; height: 38px !important; }
+  .lb-actions { flex-direction: row !important; flex-wrap: wrap !important; justify-content: center !important; gap: 6px !important; }
+  .lb-btn { font-size: 11px !important; padding: 8px 14px !important; }
+}
+
+/* ===== TIMER MODAL MOBILE ===== */
+@media (max-width: 480px) {
+  .timer-edit-content { padding: 20px 14px !important; }
+  .timer-edit-content h2 { font-size: 1rem !important; }
+  .timer-field input, .timer-field select { font-size: 14px !important; }
+}
+
+/* ===== SCROLL LOCK WHEN SIDEBAR OPEN ===== */
+body.sidebar-is-open { overflow: hidden; }
+

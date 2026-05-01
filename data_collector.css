@@ -1,3 +1,319 @@
-/* ===== USER DASHBOARD SPECIFIC CSS ===== */
+/* ===== USER / DATA-COLLECTOR DASHBOARD SPECIFIC CSS ===== */
 body { background-color: var(--bg-primary); }
-.role-indicator { background: rgba(201,162,39,0.15); border: 1.5px solid var(--primary); color: var(--primary); padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; }
+.role-indicator {
+  background: rgba(201,162,39,0.15);
+  border: 1.5px solid var(--primary);
+  color: var(--primary);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* =============================================
+   UPLOAD FORM — BASE (Desktop)
+   ============================================= */
+#uploadSection {
+  width: 100%;
+  padding: 0;
+}
+
+.upload-form {
+  background: var(--bg-secondary);
+  padding: 2rem;
+  border-radius: 20px;
+  border: 2px solid var(--border);
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.upload-form h2 {
+  color: var(--primary);
+  margin-bottom: 2rem;
+  text-align: center;
+  font-size: 1.4rem;
+}
+
+/* 2-column grid on desktop */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.form-group {
+  margin-bottom: 0.5rem;
+}
+.form-group.full-width { grid-column: span 2; }
+.section-heading      { grid-column: span 2; color: var(--primary); margin: 1rem 0 0.5rem; font-size: 1rem; display: flex; align-items: center; gap: 8px; }
+.section-divider      { grid-column: span 2; border: none; border-top: 1px solid var(--border); margin: 0.5rem 0; }
+.image-upload-section { grid-column: span 2; margin-top: 0.5rem; }
+.video-upload-section { grid-column: span 2; }
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.4rem;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  color: #333;
+  font-size: 0.9rem;
+  transition: border-color 0.3s;
+  font-family: 'Poppins', sans-serif;
+  box-sizing: border-box;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus { outline: none; border-color: var(--primary); }
+.form-group textarea { height: 100px; resize: vertical; }
+
+/* Add-area input row */
+.add-area-input {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+  align-items: center;
+}
+.add-area-input input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.6rem 0.8rem;
+  background: #fff;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  color: #333;
+  font-size: 0.85rem;
+  font-family: 'Poppins', sans-serif;
+  box-sizing: border-box;
+}
+.add-area-input button {
+  flex-shrink: 0;
+  padding: 0.6rem 0.9rem;
+  background: var(--primary);
+  border: none;
+  border-radius: 10px;
+  color: #000;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Nearby places box */
+#nearestPointSection {
+  border: 2px solid var(--primary);
+  border-radius: 14px;
+  padding: 14px;
+  background: rgba(201,162,39,0.06);
+}
+#nearestPointSection select,
+#nearestPointSection input[type="text"],
+#nearestPointSection input[type="url"] {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  background: #fff;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  color: #333;
+  font-size: 0.85rem;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  margin-bottom: 6px;
+}
+#nearestPointsList {
+  margin-top: 8px;
+  max-height: 160px;
+  overflow-y: auto;
+}
+
+/* Map / Add nearby buttons */
+.nearest-map-btn,
+.add-np-btn {
+  width: 100%;
+  padding: 0.6rem;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-family: 'Poppins', sans-serif;
+  margin-top: 4px;
+}
+.nearest-map-btn { background: linear-gradient(135deg, #4285f4, #34a853); color: #fff; }
+.add-np-btn      { background: var(--primary); color: #000; }
+.nearest-map-btn:hover { opacity: 0.9; }
+.add-np-btn:hover      { background: var(--primary-dark); }
+
+/* Amenities grid */
+.amenities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+/* Image slots */
+.image-upload-section h3 {
+  color: var(--primary);
+  margin-bottom: 1rem;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.image-slots-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+/* Upload button */
+.btn-upload {
+  width: 100%;
+  padding: 1rem;
+  background: var(--primary);
+  color: #000;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-top: 1rem;
+  font-size: 1rem;
+  font-family: 'Poppins', sans-serif;
+}
+.btn-upload:hover { background: var(--primary-dark); transform: translateY(-2px); }
+
+/* =============================================
+   TABLET  (≤900px)
+   ============================================= */
+@media (max-width: 900px) {
+  .upload-form {
+    padding: 1.2rem;
+    border-radius: 14px;
+    margin: 0;
+  }
+  .upload-form h2 { font-size: 1.1rem; margin-bottom: 1.2rem; }
+  .form-grid { grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+  .image-slots-grid { grid-template-columns: repeat(2, 1fr); gap: 0.7rem; }
+  .amenities-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+}
+
+/* =============================================
+   PHONE  (≤600px) — single-column everything
+   ============================================= */
+@media (max-width: 600px) {
+  #uploadSection { padding: 0; }
+
+  .upload-form {
+    padding: 0.9rem;
+    border-radius: 12px;
+    border-width: 1.5px;
+    margin: 0;
+  }
+
+  .upload-form h2 {
+    font-size: 1rem;
+    margin-bottom: 0.9rem;
+  }
+
+  /* ---- Single column ---- */
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
+  .form-group.full-width,
+  .section-heading,
+  .section-divider,
+  .image-upload-section,
+  .video-upload-section { grid-column: span 1; }
+
+  /* ---- Inputs: 16px stops iOS zoom ---- */
+  .form-group label { font-size: 0.78rem; margin-bottom: 3px; }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    font-size: 16px;
+    padding: 0.65rem 0.75rem;
+    border-radius: 8px;
+  }
+  .form-group textarea { height: 88px; }
+
+  /* ---- Add-area row ---- */
+  .add-area-input { gap: 6px; }
+  .add-area-input input  { font-size: 14px; padding: 0.55rem 0.7rem; }
+  .add-area-input button { padding: 0.55rem 0.75rem; font-size: 13px; }
+
+  /* ---- Nearby places ---- */
+  #nearestPointSection { padding: 10px; border-radius: 10px; }
+  #nearestPointSection select,
+  #nearestPointSection input[type="text"],
+  #nearestPointSection input[type="url"] {
+    font-size: 14px;
+    padding: 0.55rem 0.7rem;
+  }
+  #nearestPointSection > label { font-size: 0.85rem; }
+  #nearestPointSection p       { font-size: 10px; }
+  .nearest-map-btn,
+  .add-np-btn { font-size: 0.8rem; padding: 0.55rem; }
+
+  /* ---- Image slots: 2 per row ---- */
+  .image-upload-section h3 { font-size: 13px; margin-bottom: 0.65rem; }
+  .image-slots-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+  .image-slot-bottom { padding: 5px 7px; }
+  .image-slot-bottom label { font-size: 10px; }
+  .slot-label-input { font-size: 12px; padding: 4px 8px; }
+  .image-slot-placeholder span { font-size: 10px; }
+  .image-slot-placeholder i    { font-size: 22px; }
+
+  /* ---- Video section ---- */
+  .video-upload-section { padding: 0.9rem; border-radius: 10px; }
+  .video-upload-section h3 { font-size: 13px; margin-bottom: 0.7rem; }
+  .video-tabs { gap: 5px; flex-wrap: wrap; }
+  .video-tab-btn { font-size: 11px; padding: 6px 12px; }
+  .video-url-input-wrap input { font-size: 14px; }
+  .video-preview-btn { font-size: 12px; padding: 7px 14px; }
+  .video-file-upload { padding: 1rem; border-radius: 10px; }
+  .video-file-upload-label i    { font-size: 26px; }
+  .video-file-upload-label span { font-size: 12px; }
+
+  /* ---- Amenities ---- */
+  .amenities-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+  .amenities-grid .form-group label  { font-size: 11px; }
+  .amenities-grid .form-group select { font-size: 14px; padding: 0.5rem; }
+
+  /* ---- Section headings / dividers ---- */
+  .section-heading { font-size: 0.88rem; margin: 0.7rem 0 0.35rem; }
+
+  /* ---- Upload button ---- */
+  .btn-upload {
+    font-size: 0.95rem;
+    padding: 0.85rem;
+    border-radius: 10px;
+    margin-top: 1rem;
+  }
+}
+
+/* =============================================
+   VERY SMALL  (≤380px)
+   ============================================= */
+@media (max-width: 380px) {
+  .upload-form { padding: 0.75rem; }
+  .amenities-grid { grid-template-columns: 1fr; }
+  .image-slots-grid { grid-template-columns: repeat(2, 1fr); }
+  .add-area-input { flex-direction: column; }
+  .add-area-input input,
+  .add-area-input button { width: 100%; }
+}
