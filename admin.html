@@ -155,9 +155,6 @@
                 <div class="form-group"><label style="color: #000;">Password</label><input type="password" id="password"
                         placeholder="Admin password" autocomplete="off"></div>
                 <button class="login-btn" onclick="handleLogin()">Login as Admin</button>
-                <div style="text-align:center;margin-top:12px">
-                  <a href="#" onclick="showForgotAdmin();return false" style="font-size:12px;color:#ef4444;font-weight:600"><i class="fas fa-key"></i> Forgot Password? Set New Password</a>
-                </div>
             </div>
             <div style="text-align:center;margin-top:16px;font-size:13px;color:#666">Other dashboards: <a
                     href="data_collector.html" style="color:var(--primary)">Data Collector</a> · <a href="sallers.html"
@@ -177,9 +174,14 @@
             <button class="hamburger-btn" onclick="openNavDrawer()" aria-label="Open menu">
                 <i class="fas fa-bars"></i>
             </button>
+            <!-- Mobile Logout Button (visible only on mobile) -->
+            <button class="mobile-logout-btn" onclick="logout()" aria-label="Logout">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
             <div class="nav-right">
                 <div class="nav-links">
                     <span class="nav-link active" onclick="showSection('properties',this)">Properties</span>
+                    <span class="nav-link" onclick="showSection('users',this)"><i class="fas fa-users-cog" style="margin-right:4px"></i>Users</span>
                     <button class="notif-bell-btn" id="notifBellBtn" onclick="toggleNotifBar()" title="Notifications"
                         style="display:none">
                         <i class="fas fa-bell" id="notifBellIcon"></i>
@@ -252,6 +254,9 @@
             <div class="drawer-nav-links">
                 <button class="drawer-nav-link active" onclick="showSection('properties',this);closeNavDrawer()">
                     <i class="fas fa-building"></i> Properties
+                </button>
+                <button class="drawer-nav-link" onclick="showSection('users',this);closeNavDrawer()">
+                    <i class="fas fa-users-cog"></i> User Management
                 </button>
             </div>
             <div class="drawer-footer">
@@ -386,6 +391,49 @@
                     </div>
                     <div class="properties-grid" id="propertiesGrid"></div>
                 </div>
+
+                <!-- ===== USER MANAGEMENT SECTION ===== -->
+                <div id="userMgmtSection" style="display:none">
+                    <div class="properties-header">
+                        <h2><i class="fas fa-users-cog"></i> Data Collector User Management</h2>
+                    </div>
+                    <!-- Add New User -->
+                    <div style="background:var(--bg-secondary);border:2px solid var(--border);border-radius:18px;padding:1.5rem;margin-bottom:1.5rem;max-width:520px">
+                        <h3 style="color:var(--primary);margin-bottom:1rem;font-size:15px;display:flex;align-items:center;gap:8px"><i class="fas fa-user-plus"></i> Add New Data Collector</h3>
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-bottom:0.8rem">
+                            <div>
+                                <label style="display:block;font-size:12px;color:var(--text-secondary);margin-bottom:4px">Full Name</label>
+                                <input type="text" id="adminNewName" placeholder="e.g., Ahmed Ali" style="width:100%;padding:0.65rem 0.8rem;background:var(--bg-card);border:2px solid var(--border);border-radius:10px;color:#fff;font-size:14px;font-family:Poppins,sans-serif;box-sizing:border-box">
+                            </div>
+                            <div>
+                                <label style="display:block;font-size:12px;color:var(--text-secondary);margin-bottom:4px">Username *</label>
+                                <input type="text" id="adminNewUsername" placeholder="e.g., ahmed123" style="width:100%;padding:0.65rem 0.8rem;background:var(--bg-card);border:2px solid var(--border);border-radius:10px;color:#fff;font-size:14px;font-family:Poppins,sans-serif;box-sizing:border-box">
+                            </div>
+                            <div>
+                                <label style="display:block;font-size:12px;color:var(--text-secondary);margin-bottom:4px">Password *</label>
+                                <input type="password" id="adminNewPassword" placeholder="Min 4 characters" style="width:100%;padding:0.65rem 0.8rem;background:var(--bg-card);border:2px solid var(--border);border-radius:10px;color:#fff;font-size:14px;font-family:Poppins,sans-serif;box-sizing:border-box">
+                            </div>
+                            <div>
+                                <label style="display:block;font-size:12px;color:var(--text-secondary);margin-bottom:4px">Confirm Password *</label>
+                                <input type="password" id="adminNewConfirmPass" placeholder="Repeat password" style="width:100%;padding:0.65rem 0.8rem;background:var(--bg-card);border:2px solid var(--border);border-radius:10px;color:#fff;font-size:14px;font-family:Poppins,sans-serif;box-sizing:border-box">
+                            </div>
+                        </div>
+                        <button onclick="adminAddDCUser()" style="width:100%;padding:0.75rem;background:var(--primary);color:#000;border:none;border-radius:10px;font-weight:700;font-size:14px;cursor:pointer;font-family:Poppins,sans-serif;display:flex;align-items:center;justify-content:center;gap:8px">
+                            <i class="fas fa-plus-circle"></i> Add Data Collector Account
+                        </button>
+                    </div>
+
+                    <!-- Users List -->
+                    <div style="background:var(--bg-secondary);border:2px solid var(--border);border-radius:18px;padding:1.5rem">
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;flex-wrap:wrap;gap:8px">
+                            <h3 style="color:var(--primary);font-size:15px;display:flex;align-items:center;gap:8px"><i class="fas fa-list-ul"></i> Existing Accounts</h3>
+                            <button onclick="loadDCUsers()" style="background:rgba(201,162,39,0.12);border:1.5px solid rgba(201,162,39,0.3);color:var(--primary);padding:6px 14px;border-radius:8px;font-size:12px;cursor:pointer;font-family:Poppins,sans-serif"><i class="fas fa-sync-alt"></i> Refresh</button>
+                        </div>
+                        <div id="dcUsersList"></div>
+                    </div>
+                </div>
+                <!-- ===== END USER MANAGEMENT ===== -->
+
             </div>
         </div>
     </div>
@@ -394,42 +442,38 @@
     <script src="card.js"></script>
     <script>
         // ===== SIMPLE ADMIN CREDENTIALS =====
-        const ADMIN_KEY = 'adminCreds_v4';
+        // ===== ADMIN LOGIN SYSTEM =====
+        // Admin can enter ANY username+password to login (first time)
+        // Once password is set from dashboard, that password is required
+        const ADMIN_KEY = 'adminCreds_v5';
 
         function getAdminCreds() {
             try { return JSON.parse(localStorage.getItem(ADMIN_KEY)); } catch(e) {}
-            return { username: 'admin', password: 'admin123' };
-        }
-        function initDefaultCreds() {
-            if (!localStorage.getItem(ADMIN_KEY)) {
-                localStorage.setItem(ADMIN_KEY, JSON.stringify({ username: 'admin', password: 'admin123' }));
-            }
+            return null; // null = no fixed creds, any login works
         }
 
         let currentUser = null;
 
-        // ===== FORGOT PASSWORD (Admin sets any new password) =====
-        function showForgotAdmin() {
-            const newPass = prompt('Set a new Admin password (you will use this to login):');
-            if (!newPass || newPass.trim().length < 4) { alert('Password must be at least 4 characters.'); return; }
-            const cur = getAdminCreds();
-            localStorage.setItem(ADMIN_KEY, JSON.stringify({ username: cur.username, password: newPass.trim() }));
-            alert('Password updated! New password: ' + newPass.trim() + '\nUsername: ' + cur.username);
-        }
-
-        // ===== LOGIN =====
+        // ===== LOGIN — Any u/p works unless fixed creds are set =====
         function handleLogin() {
             const u = document.getElementById('username').value.trim();
             const p = document.getElementById('password').value.trim();
-            if (!u || !p) { alert('Please enter your username and password.'); return; }
-            initDefaultCreds();
-            const creds = getAdminCreds();
-            if (u === creds.username && p === creds.password) {
+            if (!u || !p) { alert('Please enter username and password.'); return; }
+            const fixed = getAdminCreds();
+            if (fixed) {
+                // Fixed creds exist — must match
+                if (u === fixed.username && p === fixed.password) {
+                    currentUser = { username: u, type: 'admin', loginTime: new Date().toISOString() };
+                    sessionStorage.setItem('currentUser_admin', JSON.stringify(currentUser));
+                    showDashboard();
+                } else {
+                    alert('Wrong username or password!\n\nIf you forgot, reset from the Admin Dashboard → Change Credentials.');
+                }
+            } else {
+                // No fixed creds — any username+password logs in
                 currentUser = { username: u, type: 'admin', loginTime: new Date().toISOString() };
                 sessionStorage.setItem('currentUser_admin', JSON.stringify(currentUser));
                 showDashboard();
-            } else {
-                alert('Wrong username or password!\n\nDefault: admin / admin123\n\nTo reset, click "Forgot Password".');
             }
         }
 
@@ -462,7 +506,13 @@
             if (newP !== confP) { alert('Passwords do not match.'); return; }
             localStorage.setItem(ADMIN_KEY, JSON.stringify({ username: newU, password: newP }));
             closeChangeCredentials();
-            showToast('Credentials updated! New: ' + newU + ' / ' + newP);
+            showToast('✓ Credentials set! Login: ' + newU + ' / ' + newP);
+        }
+        function resetAdminCreds() {
+            if(confirm('Reset to open login? (anyone can login until you set new credentials)')) {
+                localStorage.removeItem(ADMIN_KEY);
+                showToast('Credentials reset. Any username/password will work now.');
+            }
         }
         function showDashboard() {
             document.getElementById('loginPage').style.display = 'none';
@@ -579,9 +629,96 @@
         }
 
         function showSection(section, el) {
-            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            document.querySelectorAll('.nav-link, .drawer-nav-link').forEach(l => l.classList.remove('active'));
             if (el) el.classList.add('active');
-            applyFilters();
+            document.getElementById('propertiesSection').style.display = section === 'properties' ? 'block' : 'none';
+            document.getElementById('userMgmtSection').style.display = section === 'users' ? 'block' : 'none';
+            if (section === 'users') loadDCUsers();
+            if (section === 'properties') applyFilters();
+        }
+
+        // ===== DATA COLLECTOR USER MANAGEMENT =====
+        const DC_ACCOUNTS_KEY = 'dcUserAccounts_v1';
+
+        function getDCAccounts() {
+            try { return JSON.parse(localStorage.getItem(DC_ACCOUNTS_KEY)) || []; } catch(e) { return []; }
+        }
+        function saveDCAccounts(accounts) {
+            localStorage.setItem(DC_ACCOUNTS_KEY, JSON.stringify(accounts));
+        }
+
+        function loadDCUsers() {
+            const accounts = getDCAccounts();
+            const container = document.getElementById('dcUsersList');
+            if (!accounts.length) {
+                container.innerHTML = '<p style="color:var(--text-muted);font-size:13px;text-align:center;padding:20px"><i class="fas fa-user-slash" style="font-size:24px;display:block;margin-bottom:8px;opacity:0.4"></i>No data collector accounts yet.<br>Add one above.</p>';
+                return;
+            }
+            container.innerHTML = accounts.map((a, i) => `
+                <div style="background:var(--bg-card);border:1.5px solid var(--border);border-radius:14px;padding:14px 16px;margin-bottom:10px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+                    <div style="width:40px;height:40px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:50%;display:flex;align-items:center;justify-content:center;color:#000;font-weight:700;font-size:16px;flex-shrink:0">
+                        ${(a.name || a.username).charAt(0).toUpperCase()}
+                    </div>
+                    <div style="flex:1;min-width:0">
+                        <div style="font-weight:600;color:#fff;font-size:14px">${a.name || '—'}</div>
+                        <div style="font-size:12px;color:var(--text-muted)">@${a.username}</div>
+                        <div style="font-size:11px;color:var(--text-muted);margin-top:2px">Password: <span style="color:var(--primary);font-weight:600">${a.password}</span></div>
+                    </div>
+                    <div style="display:flex;gap:6px;flex-wrap:wrap">
+                        <button onclick="adminEditDCUser(${i})" style="background:rgba(201,162,39,0.12);border:1.5px solid rgba(201,162,39,0.35);color:var(--primary);padding:6px 12px;border-radius:8px;font-size:12px;cursor:pointer;font-family:Poppins,sans-serif;display:flex;align-items:center;gap:5px"><i class="fas fa-edit"></i> Edit</button>
+                        <button onclick="adminDeleteDCUser(${i})" style="background:rgba(239,68,68,0.12);border:1.5px solid rgba(239,68,68,0.35);color:#ef4444;padding:6px 12px;border-radius:8px;font-size:12px;cursor:pointer;font-family:Poppins,sans-serif;display:flex;align-items:center;gap:5px"><i class="fas fa-trash"></i> Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function adminAddDCUser() {
+            const name = document.getElementById('adminNewName').value.trim();
+            const u = document.getElementById('adminNewUsername').value.trim();
+            const p = document.getElementById('adminNewPassword').value.trim();
+            const cp = document.getElementById('adminNewConfirmPass').value.trim();
+            if (!u || !p) { showToast('Username and password are required!'); return; }
+            if (p !== cp) { showToast('Passwords do not match!'); return; }
+            if (p.length < 4) { showToast('Password must be at least 4 characters!'); return; }
+            const accounts = getDCAccounts();
+            if (accounts.find(a => a.username === u)) { showToast('Username already exists! Choose another.'); return; }
+            accounts.push({ name: name || u, username: u, password: p, createdAt: new Date().toISOString() });
+            saveDCAccounts(accounts);
+            ['adminNewName','adminNewUsername','adminNewPassword','adminNewConfirmPass'].forEach(id => document.getElementById(id).value = '');
+            loadDCUsers();
+            showToast('User "' + u + '" added successfully!');
+        }
+
+        function adminEditDCUser(idx) {
+            const accounts = getDCAccounts();
+            const a = accounts[idx];
+            if (!a) return;
+            const newUser = prompt('Edit Username:', a.username);
+            if (newUser === null) return;
+            const newPass = prompt('Edit Password:', a.password);
+            if (newPass === null) return;
+            const newName = prompt('Edit Full Name:', a.name || '');
+            if (newName === null) return;
+            if (!newUser.trim() || !newPass.trim()) { showToast('Username and password cannot be empty!'); return; }
+            if (newPass.trim().length < 4) { showToast('Password must be at least 4 characters!'); return; }
+            // Check username conflict (exclude self)
+            if (accounts.find((ac, i) => i !== idx && ac.username === newUser.trim())) {
+                showToast('Username already taken!'); return;
+            }
+            accounts[idx] = { ...a, name: newName.trim() || newUser.trim(), username: newUser.trim(), password: newPass.trim() };
+            saveDCAccounts(accounts);
+            loadDCUsers();
+            showToast('User "' + newUser.trim() + '" updated!');
+        }
+
+        function adminDeleteDCUser(idx) {
+            const accounts = getDCAccounts();
+            if (!accounts[idx]) return;
+            if (!confirm('Delete user "' + accounts[idx].username + '"? This cannot be undone.')) return;
+            accounts.splice(idx, 1);
+            saveDCAccounts(accounts);
+            loadDCUsers();
+            showToast('User deleted.');
         }
 
         // ===== ADMIN ACTIONS =====
@@ -732,7 +869,6 @@
 
         // ===== AUTO SESSION =====
         (function () {
-            initDefaultCreds();
             const saved = sessionStorage.getItem('currentUser_admin');
             if (saved) { try { currentUser = JSON.parse(saved); showDashboard(); } catch (e) { sessionStorage.removeItem('currentUser_admin'); } }
         })();

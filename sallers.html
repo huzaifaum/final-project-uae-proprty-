@@ -109,7 +109,6 @@
                 <div class="form-group"><label style="color:#000;">Password</label><input type="password" id="password"
                         autocomplete="off"></div>
                 <button class="login-btn" onclick="handleLogin()">Login as Sallers</button>
-                <div style="text-align:center;margin-top:12px"><a href="#" onclick="showForgotSallers();return false" style="font-size:12px;color:#10b981;font-weight:600"><i class="fas fa-key"></i> Forgot Password? Set New Password</a></div>
             </div>
             <div style="text-align:center;margin-top:16px;font-size:13px;color:#666">Other: <a href="admin.html"
                     style="color:#ef4444">Admin</a> · <a href="data_collector.html" style="color:var(--primary)">Data Collector</a></div>
@@ -126,6 +125,10 @@
             <div class="nav-center"></div>
             <button class="hamburger-btn" onclick="openNavDrawer()" aria-label="Open menu">
                 <i class="fas fa-bars"></i>
+            </button>
+            <!-- Mobile Logout Button -->
+            <button class="mobile-logout-btn" onclick="logout()" style="border-color:rgba(16,185,129,0.5);color:#10b981;background:rgba(16,185,129,0.1)" aria-label="Logout">
+                <i class="fas fa-sign-out-alt"></i> Logout
             </button>
             <div class="nav-right">
                 <div class="nav-links">

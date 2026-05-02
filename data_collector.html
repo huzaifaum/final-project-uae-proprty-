@@ -80,13 +80,14 @@
       <div style="text-align:center;margin-bottom:18px"><span class="role-badge user"><i class="fas fa-database"></i> Data Collector Access</span></div>
       <!-- Tabs -->
       <div style="display:flex;gap:0;margin-bottom:16px;border:2px solid #e5e7eb;border-radius:12px;overflow:hidden">
-        <button id="loginTab" onclick="showLoginTab()" style="flex:1;padding:11px;border:none;background:var(--primary);color:#000;font-weight:700;font-size:13px;cursor:pointer;font-family:Poppins,sans-serif">
+        <button id="loginTab" onclick="showLoginTab()" style="flex:1;padding:11px;border:none;background:var(--primary);color:#000;font-weight:700;font-size:13px;cursor:pointer;font-family:Poppins,sans-serif;transition:all 0.2s">
           <i class="fas fa-sign-in-alt"></i> Login
         </button>
-        <button id="registerTab" onclick="showRegisterTab()" style="flex:1;padding:11px;border:none;background:#f3f4f6;color:#555;font-weight:700;font-size:13px;cursor:pointer;font-family:Poppins,sans-serif">
+        <button id="registerTab" onclick="showRegisterTab()" style="flex:1;padding:11px;border:none;background:#f3f4f6;color:#555;font-weight:700;font-size:13px;cursor:pointer;font-family:Poppins,sans-serif;transition:all 0.2s">
           <i class="fas fa-user-plus"></i> Register
         </button>
       </div>
+      <!-- Login -->
       <div id="loginFormWrap">
         <div class="login-form">
           <div class="form-group"><label style="color:#000">Username</label><input type="text" id="username" placeholder="Enter username" autocomplete="off"></div>
@@ -95,6 +96,7 @@
           <p style="text-align:center;margin-top:10px;font-size:12px;color:#888">No account? <a href="#" onclick="showRegisterTab();return false" style="color:var(--primary);font-weight:600">Register here</a></p>
         </div>
       </div>
+      <!-- Register -->
       <div id="registerFormWrap" style="display:none">
         <div class="login-form">
           <div class="form-group"><label style="color:#000">Full Name</label><input type="text" id="regName" placeholder="Your full name" autocomplete="off"></div>
@@ -123,6 +125,10 @@
       <div class="nav-center"></div>
       <button class="hamburger-btn" onclick="openNavDrawer()" aria-label="Open menu">
         <i class="fas fa-bars"></i>
+      </button>
+      <!-- Mobile Logout Button -->
+      <button class="mobile-logout-btn" onclick="logout()" aria-label="Logout">
+        <i class="fas fa-sign-out-alt"></i> Logout
       </button>
       <div class="nav-right">
         <div class="nav-links">
@@ -635,11 +641,11 @@
       const accounts = getAllAccounts();
       const found = accounts.find(a => a.username === u && a.password === p);
       if (found) {
-        currentUser = { username: found.username, name: found.name, type: 'user', loginTime: new Date().toISOString() };
+        currentUser = { username: found.username, name: found.name || found.username, type: 'user', loginTime: new Date().toISOString() };
         sessionStorage.setItem('currentUser_user', JSON.stringify(currentUser));
         showDashboard();
       } else {
-        alert('Invalid credentials. Please check username/password or register a new account.');
+        alert('Invalid username or password.\n\nPlease contact your Admin to get your login credentials.');
       }
     }
 
