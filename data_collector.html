@@ -16,6 +16,18 @@
 
 <body>
 
+  <!-- Change Credentials Modal (Data Collector) -->
+  <div id="changeCredsModal" class="edit-modal" onclick="if(event.target===this)closeChangeCredentials()">
+      <div class="edit-modal-content" style="max-width:440px">
+          <div class="edit-modal-close" onclick="closeChangeCredentials()"><i class="fas fa-times"></i></div>
+          <h2 style="color:var(--primary);margin-bottom:6px;font-size:18px"><i class="fas fa-key"></i> Change My Password</h2>
+          <p style="color:#888;font-size:12px;margin-bottom:20px">Update your Data Collector password. You will use the new password on next login.</p>
+          <div class="edit-form-group"><label>New Password</label><input type="password" id="newPassword" placeholder="Minimum 4 characters" autocomplete="new-password"></div>
+          <div class="edit-form-group"><label>Confirm Password</label><input type="password" id="confirmPassword" placeholder="Repeat new password" autocomplete="new-password"></div>
+          <button class="save-edit-btn" onclick="saveNewCredentials()"><i class="fas fa-save"></i> Save New Password</button>
+      </div>
+  </div>
+
   <div id="notificationToast" class="notification-toast"><i class="fas fa-bell"></i><span
       id="toastMessage">Done!</span><span onclick="hideToast()" style="cursor:pointer;margin-left:4px"><i
         class="fas fa-times"></i></span></div>
@@ -126,10 +138,7 @@
       <button class="hamburger-btn" onclick="openNavDrawer()" aria-label="Open menu">
         <i class="fas fa-bars"></i>
       </button>
-      <!-- Mobile Logout Button -->
-      <button class="mobile-logout-btn" onclick="logout()" aria-label="Logout">
-        <i class="fas fa-sign-out-alt"></i> Logout
-      </button>
+
       <div class="nav-right">
         <div class="nav-links">
           <span class="nav-link active" onclick="showSection('properties',this)">Properties</span>
@@ -141,6 +150,8 @@
               <div class="user-type" style="color:var(--primary)">Data Collector</div>
             </div>
           </div>
+          <button class="logout-btn" style="border-color:var(--primary);color:var(--primary);margin-right:4px"
+              onclick="openChangeCredentials()" title="Change Password"><i class="fas fa-key"></i></button>
           <button class="logout-btn" onclick="logout()">Logout</button>
         </div>
       </div>
@@ -202,6 +213,9 @@
         </button>
       </div>
       <div class="drawer-footer">
+        <button class="drawer-creds-btn" onclick="openChangeCredentials();closeNavDrawer()">
+          <i class="fas fa-key"></i> Change Password
+        </button>
         <button class="drawer-logout-btn" onclick="logout()">
           <i class="fas fa-sign-out-alt"></i> Logout
         </button>
@@ -889,6 +903,36 @@
       s1.setAttribute('crossorigin', '*');
       s0.parentNode.insertBefore(s1, s0);
     })();
+    // ===== CHANGE CREDENTIALS (Data Collector) =====
+    function openChangeCredentials() {
+      const modal = document.getElementById('changeCredsModal');
+      if (modal) modal.classList.add('active');
+    }
+    function closeChangeCredentials() {
+      const modal = document.getElementById('changeCredsModal');
+      if (modal) {
+        modal.classList.remove('active');
+        ['newPassword','confirmPassword'].forEach(id => {
+          const el = document.getElementById(id); if (el) el.value = '';
+        });
+      }
+    }
+    function saveNewCredentials() {
+      const newP = document.getElementById('newPassword').value;
+      const confP = document.getElementById('confirmPassword').value;
+      if (!newP) { alert('Password is required.'); return; }
+      if (newP !== confP) { alert('Passwords do not match.'); return; }
+      if (newP.length < 4) { alert('Password must be at least 4 characters.'); return; }
+      if (!currentUser) { alert('Not logged in.'); return; }
+      const accounts = getAllAccounts();
+      const idx = accounts.findIndex(a => a.username === currentUser.username);
+      if (idx === -1) { alert('Account not found.'); return; }
+      accounts[idx].password = newP;
+      saveAllAccounts(accounts);
+      closeChangeCredentials();
+      showToast('Password updated successfully!');
+    }
+
     // ===== AUTO SESSION =====
     (function () {
       const saved = sessionStorage.getItem('currentUser_user');

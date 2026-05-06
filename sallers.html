@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UAE Properties – Sallers Dashboard</title>
+    <title>UAE Properties – Sellers Dashboard</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
@@ -26,7 +26,7 @@
             <div class="edit-modal-close" onclick="closeChangeCredentials()"><i class="fas fa-times"></i></div>
             <h2 style="color:#10b981;margin-bottom:6px;font-size:18px"><i class="fas fa-key"></i> Change Marketing
                 Credentials</h2>
-            <p style="color:#888;font-size:12px;margin-bottom:20px">Update your marketing username and password. New
+            <p style="color:#888;font-size:12px;margin-bottom:20px">Update your sellers username and password. New
                 credentials will be required on next login.</p>
             <div class="edit-form-group"><label>New Username</label><input type="text" id="newUsername"
                     placeholder="Enter new username" autocomplete="off"></div>
@@ -99,16 +99,16 @@
             <div class="header-brand">
                 <img src="image-removebg-preview.png" alt="" class="header-logo" onerror="this.style.display='none'">
                 <h1>UAE Properties</h1>
-                <p class="subtitle">Sallers Dashboard</p>
+                <p class="subtitle">Sellers Dashboard</p>
             </div>
             <div style="text-align:center;margin-bottom:18px"><span class="role-badge marketing"><i
-                        class="fas fa-chart-bar"></i> Sallers Access</span></div>
+                        class="fas fa-chart-bar"></i> Sellers Access</span></div>
             <div class="login-form">
                 <div class="form-group"><label style="color:#000;">Username</label><input type="text" id="username"
                         autocomplete="off"></div>
                 <div class="form-group"><label style="color:#000;">Password</label><input type="password" id="password"
                         autocomplete="off"></div>
-                <button class="login-btn" onclick="handleLogin()">Login as Sallers</button>
+                <button class="login-btn" onclick="handleLogin()">Login as Sellers</button>
             </div>
             <div style="text-align:center;margin-top:16px;font-size:13px;color:#666">Other: <a href="admin.html"
                     style="color:#ef4444">Admin</a> · <a href="data_collector.html" style="color:var(--primary)">Data Collector</a></div>
@@ -126,10 +126,7 @@
             <button class="hamburger-btn" onclick="openNavDrawer()" aria-label="Open menu">
                 <i class="fas fa-bars"></i>
             </button>
-            <!-- Mobile Logout Button -->
-            <button class="mobile-logout-btn" onclick="logout()" style="border-color:rgba(16,185,129,0.5);color:#10b981;background:rgba(16,185,129,0.1)" aria-label="Logout">
-                <i class="fas fa-sign-out-alt"></i> Logout
-            </button>
+
             <div class="nav-right">
                 <div class="nav-links">
                     <span class="nav-link active" onclick="showSection('properties',this)">Properties</span>
@@ -138,7 +135,7 @@
                             style="background:linear-gradient(135deg,#10b981,#059669)">M</div>
                         <div class="user-details">
                             <div class="user-name" id="displayName">Marketing</div>
-                            <div class="user-type" style="color:#10b981">Sallers Team &nbsp;<span id="userLoginTime" style="font-size:10px;color:#aaa"></span></div>
+                            <div class="user-type" style="color:#10b981">Sellers Team &nbsp;<span id="userLoginTime" style="font-size:10px;color:#aaa"></span></div>
                         </div>
                     </div>
                     <button class="logout-btn" style="border-color:#10b981;color:#10b981;margin-right:4px"
@@ -195,7 +192,7 @@
                     style="background:linear-gradient(135deg,#10b981,#059669);color:#fff">M</div>
                 <div class="drawer-user-info">
                     <div class="drawer-user-name" id="drawerName">Marketing</div>
-                    <div class="drawer-user-role" style="color:#10b981">Sallers Team</div>
+                    <div class="drawer-user-role" style="color:#10b981">Sellers Team</div>
                 </div>
             </div>
             <div class="drawer-nav-links">
