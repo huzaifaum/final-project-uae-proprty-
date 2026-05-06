@@ -54,10 +54,10 @@ body{font-family:'Poppins',sans-serif;min-height:100vh;background:var(--bg);disp
 .card-admin::before{background:radial-gradient(ellipse at top,rgba(239,68,68,.1),transparent 70%)}
 .card-admin::after{background:linear-gradient(90deg,transparent,#ef4444,transparent)}
 .card-admin:hover{border-color:rgba(239,68,68,.6);box-shadow:0 20px 60px rgba(239,68,68,.18)}
-.card-sallers{border-color:rgba(16,185,129,.25)}
-.card-sallers::before{background:radial-gradient(ellipse at top,rgba(16,185,129,.1),transparent 70%)}
-.card-sallers::after{background:linear-gradient(90deg,transparent,#10b981,transparent)}
-.card-sallers:hover{border-color:rgba(16,185,129,.6);box-shadow:0 20px 60px rgba(16,185,129,.18)}
+.card-sellers{border-color:rgba(16,185,129,.25)}
+.card-sellers::before{background:radial-gradient(ellipse at top,rgba(16,185,129,.1),transparent 70%)}
+.card-sellers::after{background:linear-gradient(90deg,transparent,#10b981,transparent)}
+.card-sellers:hover{border-color:rgba(16,185,129,.6);box-shadow:0 20px 60px rgba(16,185,129,.18)}
 .card-dc{border-color:rgba(201,162,39,.25)}
 .card-dc::before{background:radial-gradient(ellipse at top,rgba(201,162,39,.1),transparent 70%)}
 .card-dc::after{background:linear-gradient(90deg,transparent,var(--gold),transparent)}
@@ -65,11 +65,11 @@ body{font-family:'Poppins',sans-serif;min-height:100vh;background:var(--bg);disp
 .card-icon{width:68px;height:68px;border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:28px;position:relative;z-index:1;flex-shrink:0;transition:transform .3s}
 .card:hover .card-icon{transform:scale(1.1)}
 .card-admin .card-icon{background:rgba(239,68,68,.12);color:#ef4444;border:1.5px solid rgba(239,68,68,.25)}
-.card-sallers .card-icon{background:rgba(16,185,129,.12);color:#10b981;border:1.5px solid rgba(16,185,129,.25)}
+.card-sellers .card-icon{background:rgba(16,185,129,.12);color:#10b981;border:1.5px solid rgba(16,185,129,.25)}
 .card-dc .card-icon{background:rgba(201,162,39,.12);color:var(--gold);border:1.5px solid rgba(201,162,39,.25)}
 .card-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:.5px;position:relative;z-index:1}
 .card-admin .card-badge{background:rgba(239,68,68,.12);color:#ef4444;border:1px solid rgba(239,68,68,.3)}
-.card-sallers .card-badge{background:rgba(16,185,129,.12);color:#10b981;border:1px solid rgba(16,185,129,.3)}
+.card-sellers .card-badge{background:rgba(16,185,129,.12);color:#10b981;border:1px solid rgba(16,185,129,.3)}
 .card-dc .card-badge{background:rgba(201,162,39,.12);color:var(--gold);border:1px solid rgba(201,162,39,.3)}
 .card-title{font-size:19px;font-weight:800;color:#fff;position:relative;z-index:1;line-height:1.2}
 .card-desc{font-size:11.5px;color:rgba(255,255,255,.42);line-height:1.65;position:relative;z-index:1}
@@ -77,13 +77,13 @@ body{font-family:'Poppins',sans-serif;min-height:100vh;background:var(--bg);disp
 .card-features li{font-size:11px;color:rgba(255,255,255,.38);display:flex;align-items:center;gap:7px}
 .card-features li i{font-size:7px}
 .card-admin .card-features li i{color:#ef4444}
-.card-sallers .card-features li i{color:#10b981}
+.card-sellers .card-features li i{color:#10b981}
 .card-dc .card-features li i{color:var(--gold)}
 .card-btn{width:100%;padding:12px 16px;border:none;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;position:relative;z-index:1;font-family:'Poppins',sans-serif;letter-spacing:.3px;transition:all .25s}
 .card-admin .card-btn{background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff}
 .card-admin .card-btn:hover{box-shadow:0 6px 22px rgba(239,68,68,.45)}
-.card-sallers .card-btn{background:linear-gradient(135deg,#10b981,#059669);color:#fff}
-.card-sallers .card-btn:hover{box-shadow:0 6px 22px rgba(16,185,129,.45)}
+.card-sellers .card-btn{background:linear-gradient(135deg,#10b981,#059669);color:#fff}
+.card-sellers .card-btn:hover{box-shadow:0 6px 22px rgba(16,185,129,.45)}
 .card-dc .card-btn{background:linear-gradient(135deg,var(--gold),#b48a1a);color:#000}
 .card-dc .card-btn:hover{box-shadow:0 6px 22px rgba(201,162,39,.45)}
 .card-inner{flex:1;display:flex;flex-direction:column;gap:10px;min-width:0;width:100%}
@@ -160,11 +160,11 @@ body{font-family:'Poppins',sans-serif;min-height:100vh;background:var(--bg);disp
       </div>
     </a>
 
-    <a class="card card-sallers" href="sallers.html">
+    <a class="card card-sellers" href="sallers.html">
       <div class="card-icon"><i class="fas fa-tags"></i></div>
       <div class="card-inner">
-        <div class="card-badge"><i class="fas fa-store"></i> SALLERS</div>
-        <div class="card-title">Sallers</div>
+        <div class="card-badge"><i class="fas fa-store"></i> SELLERS</div>
+        <div class="card-title">Sellers</div>
         <div class="card-desc">Browse, share &amp; promote approved UAE properties to buyers.</div>
         <ul class="card-features">
           <li><i class="fas fa-circle"></i> View all approved listings</li>
@@ -172,7 +172,7 @@ body{font-family:'Poppins',sans-serif;min-height:100vh;background:var(--bg);disp
           <li><i class="fas fa-circle"></i> Advanced search &amp; filters</li>
           <li><i class="fas fa-circle"></i> Contact data collectors</li>
         </ul>
-        <button class="card-btn"><i class="fas fa-arrow-right"></i> Sallers Login</button>
+        <button class="card-btn"><i class="fas fa-arrow-right"></i> Sellers Login</button>
       </div>
     </a>
 
