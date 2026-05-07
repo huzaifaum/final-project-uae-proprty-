@@ -3,618 +3,530 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>UAE Properties — Modern Portal</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
+<title>UAE Properties — Premium Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --gold:#c9a227;
+  --gold-light:#e8c75a;
+  --gold-dim:rgba(201,162,39,0.18);
+  --gold-glow:rgba(201,162,39,0.35);
+  --ink:#0b0c0f;
+  --ink2:#13151a;
+  --ink3:#1c1f27;
+  --surface:rgba(255,255,255,0.035);
+  --surface2:rgba(255,255,255,0.06);
+  --white:#ffffff;
+  --silver:#a8b4c8;
+  --muted:#556278;
+  --red:#e85555;
+  --green:#2ecc7a;
+  --ease:cubic-bezier(0.22,1,0.36,1);
 }
 
-:root {
-  --bg-deep: #0a0c12;
-  --bg-elevated: #11141e;
-  --bg-card: rgba(20, 25, 38, 0.65);
-  --border-glow: rgba(201, 162, 39, 0.25);
-  --gold-primary: #dbb42c;
-  --gold-glow: rgba(219, 180, 44, 0.4);
-  --red-accent: #f65c5c;
-  --green-accent: #2ecc71;
-  --text-primary: #ffffff;
-  --text-secondary: #a3b3d6;
-  --text-muted: #5b6c94;
-  --transition-smooth: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+html{scroll-behavior:smooth}
+
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--ink);
+  color:var(--white);
+  min-height:100vh;
+  overflow-x:hidden;
 }
 
-body {
-  font-family: 'Inter', sans-serif;
-  background: var(--bg-deep);
-  color: var(--text-primary);
-  min-height: 100vh;
-  overflow-x: hidden;
-  line-height: 1.5;
+/* ── AMBIENT BACKGROUND ── */
+.ambient{
+  position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;
+}
+.amb-noise{
+  position:absolute;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity:0.55;
+}
+.amb-mesh{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 80vw 60vw at 15% 10%,rgba(201,162,39,0.09) 0%,transparent 60%),
+    radial-gradient(ellipse 60vw 70vw at 85% 90%,rgba(201,162,39,0.06) 0%,transparent 60%),
+    radial-gradient(ellipse 50vw 40vw at 50% 50%,rgba(30,35,50,0.6) 0%,transparent 70%);
+}
+.amb-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(201,162,39,0.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(201,162,39,0.04) 1px,transparent 1px);
+  background-size:72px 72px;
+  mask-image:radial-gradient(ellipse 85% 65% at 50% 50%,black,transparent);
+}
+.amb-vignette{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse 120% 100% at 50% 50%,transparent 40%,rgba(5,6,9,0.7));
 }
 
-/* animated background */
-.kinetic-bg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  overflow: hidden;
+/* ── LAYOUT ── */
+.page{
+  position:relative;z-index:2;
+  min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;
+  padding:4rem 2rem 5rem;
 }
 
-.gradient-orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(90px);
-  opacity: 0.5;
-  animation: floatOrb 18s infinite alternate ease-in-out;
+/* ── HEADER ── */
+.header{
+  text-align:center;
+  margin-bottom:4.5rem;
+  animation:fadeUp 0.9s var(--ease) both;
+}
+.logo-mark{
+  width:88px;height:88px;
+  margin:0 auto 2rem;
+  border-radius:28px;
+  background:rgba(255,255,255,0.02);
+  border:1px solid rgba(201,162,39,0.4);
+  display:flex;align-items:center;justify-content:center;
+  position:relative;
+  box-shadow:
+    0 0 0 1px rgba(201,162,39,0.08),
+    0 20px 40px rgba(0,0,0,0.4),
+    inset 0 1px 0 rgba(255,255,255,0.04);
+  transition:transform 0.5s var(--ease),border-color 0.4s;
+}
+.logo-mark::after{
+  content:'';position:absolute;inset:-1px;border-radius:28px;
+  background:linear-gradient(135deg,rgba(201,162,39,0.3),transparent 50%,rgba(201,162,39,0.1));
+  pointer-events:none;
+}
+.logo-mark:hover{transform:scale(1.04);border-color:var(--gold);}
+.logo-mark img{width:52px;height:52px;object-fit:contain;filter:drop-shadow(0 2px 12px rgba(201,162,39,0.5));}
+.logo-mark-fallback{font-size:36px;color:var(--gold);filter:drop-shadow(0 0 14px var(--gold-glow));}
+
+.eyebrow{
+  font-family:'DM Sans',sans-serif;
+  font-size:10px;font-weight:500;letter-spacing:5px;
+  color:var(--gold);text-transform:uppercase;
+  margin-bottom:1.2rem;
+  opacity:0.85;
 }
 
-.orb1 {
-  width: 55vw;
-  height: 55vw;
-  background: radial-gradient(circle, rgba(219, 180, 44, 0.2), transparent 70%);
-  top: -15%;
-  left: -15%;
+.main-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(3.5rem,10vw,6rem);
+  font-weight:300;
+  line-height:0.9;
+  letter-spacing:-0.02em;
+  margin-bottom:1.4rem;
+}
+.main-title .line1{
+  display:block;color:var(--white);
+  font-style:italic;
+}
+.main-title .line2{
+  display:block;
+  background:linear-gradient(100deg,var(--gold-light) 0%,var(--gold) 60%,#a07a18 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  font-style:normal;font-weight:600;
 }
 
-.orb2 {
-  width: 65vw;
-  height: 65vw;
-  background: radial-gradient(circle, rgba(46, 204, 113, 0.12), transparent 70%);
-  bottom: -30%;
-  right: -20%;
-  animation-duration: 24s;
+.subtitle{
+  font-size:14px;color:var(--silver);font-weight:300;
+  letter-spacing:0.5px;max-width:380px;margin:0 auto 2.5rem;
+  line-height:1.6;
 }
 
-.orb3 {
-  width: 45vw;
-  height: 45vw;
-  background: radial-gradient(circle, rgba(246, 92, 92, 0.08), transparent 70%);
-  top: 40%;
-  left: 60%;
-  animation-duration: 20s;
+.header-stats{
+  display:inline-flex;align-items:center;gap:0;
+  background:rgba(255,255,255,0.025);
+  border:1px solid rgba(255,255,255,0.07);
+  border-radius:100px;
+  overflow:hidden;
+  backdrop-filter:blur(10px);
+}
+.hstat{
+  padding:0.55rem 1.5rem;
+  font-size:11px;font-weight:500;
+  color:var(--silver);
+  display:flex;align-items:center;gap:7px;
+  border-right:1px solid rgba(255,255,255,0.06);
+}
+.hstat:last-child{border-right:none;}
+.hstat i{color:var(--gold);font-size:10px;}
+.hstat strong{color:var(--white);font-weight:600;}
+
+/* ── SECTION LABEL ── */
+.section-rule{
+  width:100%;max-width:1000px;
+  display:flex;align-items:center;gap:1.2rem;
+  margin-bottom:2.8rem;
+  animation:fadeUp 1s var(--ease) 0.2s both;
+}
+.section-rule .rule-line{flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(201,162,39,0.4),transparent);}
+.section-rule .rule-label{
+  font-size:9px;font-weight:600;letter-spacing:4px;color:var(--muted);
+  text-transform:uppercase;white-space:nowrap;
+  padding:4px 14px;
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:100px;
+  background:rgba(255,255,255,0.02);
 }
 
-@keyframes floatOrb {
-  0% { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(4%, 6%) scale(1.08); }
+/* ── CARDS GRID ── */
+.portals{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1.5rem;
+  max-width:1080px;width:100%;
+  animation:fadeUp 1s var(--ease) 0.3s both;
 }
 
-.grid-pattern {
-  position: absolute;
-  inset: 0;
-  background-image: 
-    linear-gradient(rgba(219, 180, 44, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(219, 180, 44, 0.03) 1px, transparent 1px);
-  background-size: 56px 56px;
-  mask-image: radial-gradient(ellipse 90% 70% at 50% 40%, black, transparent);
+/* ── CARD ── */
+.portal-card{
+  background:var(--surface);
+  border:1px solid rgba(255,255,255,0.07);
+  border-radius:28px;
+  padding:2.2rem 2rem 2rem;
+  position:relative;
+  overflow:hidden;
+  display:flex;flex-direction:column;
+  text-decoration:none;color:inherit;
+  cursor:pointer;
+  transition:transform 0.5s var(--ease),border-color 0.4s,box-shadow 0.4s;
+  backdrop-filter:blur(18px);
 }
 
-.portal {
-  position: relative;
-  z-index: 2;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 3rem 1.5rem;
-  backdrop-filter: blur(2px);
+.portal-card::before{
+  content:'';position:absolute;
+  top:-60%;left:-40%;width:180%;height:180%;
+  background:radial-gradient(circle at 30% 30%,rgba(201,162,39,0.07),transparent 55%);
+  opacity:0;transition:opacity 0.5s;pointer-events:none;
 }
 
-/* header */
-.hero-section {
-  text-align: center;
-  margin-bottom: 3rem;
-  animation: fadeSlideDown 0.7s ease-out;
+.portal-card:hover{
+  transform:translateY(-10px);
+  border-color:rgba(201,162,39,0.45);
+  box-shadow:0 40px 60px -20px rgba(0,0,0,0.6),0 0 0 1px rgba(201,162,39,0.2);
+}
+.portal-card:hover::before{opacity:1;}
+
+/* corner accent */
+.portal-card::after{
+  content:'';position:absolute;top:0;right:0;
+  width:80px;height:80px;
+  background:radial-gradient(circle at 100% 0%,rgba(201,162,39,0.12),transparent 70%);
+  border-radius:0 28px 0 0;
+  transition:opacity 0.4s;
 }
 
-.glass-logo {
-  width: 96px;
-  height: 96px;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1.5px solid rgba(219, 180, 44, 0.5);
-  border-radius: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 1.5rem;
-  backdrop-filter: blur(12px);
-  box-shadow: 0 15px 35px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05);
-  transition: var(--transition-smooth);
+/* number tag */
+.card-num{
+  position:absolute;top:1.8rem;right:2rem;
+  font-family:'Cormorant Garamond',serif;
+  font-size:56px;font-weight:300;
+  line-height:1;
+  color:rgba(201,162,39,0.08);
+  font-style:italic;
+  transition:color 0.4s;
+  pointer-events:none;
+  user-select:none;
 }
+.portal-card:hover .card-num{color:rgba(201,162,39,0.14);}
 
-.glass-logo i {
-  font-size: 44px;
-  color: var(--gold-primary);
-  filter: drop-shadow(0 0 12px var(--gold-glow));
+/* icon */
+.card-icon{
+  width:60px;height:60px;
+  border-radius:18px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:26px;
+  margin-bottom:1.6rem;
+  flex-shrink:0;
+  transition:transform 0.4s var(--ease),box-shadow 0.4s;
 }
+.icon-red{background:rgba(232,85,85,0.1);color:var(--red);border:1px solid rgba(232,85,85,0.25);}
+.icon-green{background:rgba(46,204,122,0.1);color:var(--green);border:1px solid rgba(46,204,122,0.25);}
+.icon-gold{background:var(--gold-dim);color:var(--gold);border:1px solid rgba(201,162,39,0.3);}
+.portal-card:hover .card-icon{transform:scale(1.08);box-shadow:0 8px 24px rgba(0,0,0,0.3);}
 
-.glass-logo:hover {
-  transform: scale(1.02);
-  border-color: var(--gold-primary);
-  box-shadow: 0 20px 40px rgba(219, 180, 44, 0.2);
+/* role chip */
+.role-chip{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:9px;font-weight:600;letter-spacing:2.5px;
+  text-transform:uppercase;
+  padding:5px 12px;border-radius:100px;
+  margin-bottom:1rem;
+  width:fit-content;
 }
+.chip-red{background:rgba(232,85,85,0.1);color:#f08080;border:1px solid rgba(232,85,85,0.2);}
+.chip-green{background:rgba(46,204,122,0.1);color:#5de09a;border:1px solid rgba(46,204,122,0.2);}
+.chip-gold{background:var(--gold-dim);color:var(--gold-light);border:1px solid rgba(201,162,39,0.25);}
 
-.hero-title {
-  font-size: clamp(2.5rem, 8vw, 4.5rem);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  background: linear-gradient(135deg, #FFFFFF 20%, #dbb42c 80%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  margin-bottom: 0.5rem;
+/* card title */
+.card-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:2rem;font-weight:600;
+  letter-spacing:-0.01em;
+  margin-bottom:0.5rem;
+  line-height:1;
 }
-
-.hero-badge {
-  display: inline-block;
-  background: rgba(255,255,255,0.03);
-  backdrop-filter: blur(16px);
-  padding: 0.35rem 1rem;
-  border-radius: 60px;
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: var(--gold-primary);
-  border: 1px solid rgba(219, 180, 44, 0.3);
-  margin-top: 0.75rem;
-}
-
-.stats-modern {
-  display: flex;
-  gap: 2.5rem;
-  justify-content: center;
-  margin: 2rem 0 1rem;
-  flex-wrap: wrap;
-}
-
-.stat-item {
-  background: rgba(12, 16, 24, 0.55);
-  backdrop-filter: blur(10px);
-  border-radius: 80px;
-  padding: 0.5rem 1.5rem;
-  border: 1px solid rgba(255,255,255,0.05);
-}
-
-.stat-number {
-  font-weight: 800;
-  font-size: 1.8rem;
-  line-height: 1;
-  background: linear-gradient(145deg, #fff, #dbb42c);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.stat-label {
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: var(--text-muted);
-  margin-left: 8px;
+.card-desc{
+  font-size:13px;color:var(--silver);
+  line-height:1.6;margin-bottom:1.5rem;
+  font-weight:300;
 }
 
 /* divider */
-.glass-divider {
-  width: 100%;
-  max-width: 600px;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin: 1rem 0 2.5rem;
+.card-sep{
+  width:100%;height:1px;
+  background:rgba(255,255,255,0.06);
+  margin-bottom:1.4rem;
 }
 
-.glass-divider .line {
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(219, 180, 44, 0.6), transparent);
+/* features */
+.features{
+  display:flex;flex-direction:column;gap:8px;
+  margin-bottom:2rem;
+  flex:1;
+}
+.feat{
+  display:flex;align-items:center;gap:10px;
+  font-size:12px;color:var(--silver);
+  font-weight:400;
+}
+.feat-dot{
+  width:5px;height:5px;border-radius:50%;
+  background:var(--gold);flex-shrink:0;
+  box-shadow:0 0 6px var(--gold-glow);
 }
 
-.glass-divider span {
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 3px;
-  color: var(--text-muted);
-  background: rgba(20, 24, 36, 0.6);
-  padding: 0.2rem 1rem;
-  border-radius: 40px;
-  backdrop-filter: blur(4px);
+/* CTA button */
+.card-cta{
+  width:100%;padding:0.85rem;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,0.1);
+  background:rgba(255,255,255,0.03);
+  color:var(--white);
+  font-family:'DM Sans',sans-serif;
+  font-size:13px;font-weight:500;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  cursor:pointer;
+  transition:all 0.3s var(--ease);
+  margin-top:auto;
+  text-decoration:none;
+}
+.cta-red:hover{background:rgba(232,85,85,0.2);border-color:rgba(232,85,85,0.4);color:#f99;}
+.cta-green:hover{background:rgba(46,204,122,0.2);border-color:rgba(46,204,122,0.4);color:#7eebb4;}
+.cta-gold:hover{background:rgba(201,162,39,0.2);border-color:rgba(201,162,39,0.5);color:var(--gold-light);}
+.card-cta i{transition:transform 0.3s var(--ease);}
+.portal-card:hover .card-cta i{transform:translateX(5px);}
+
+/* ── FOOTER ── */
+.footer{
+  margin-top:4.5rem;
+  text-align:center;
+  animation:fadeUp 1s var(--ease) 0.5s both;
+}
+.footer-inner{
+  display:inline-flex;align-items:center;gap:2rem;flex-wrap:wrap;justify-content:center;
+  font-size:11px;color:var(--muted);
+  background:rgba(255,255,255,0.02);
+  border:1px solid rgba(255,255,255,0.05);
+  border-radius:100px;
+  padding:0.8rem 2rem;
+  backdrop-filter:blur(10px);
+}
+.footer-inner span{display:flex;align-items:center;gap:6px;}
+.footer-inner i{color:var(--gold);font-size:10px;}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(28px);}
+  to{opacity:1;transform:translateY(0);}
 }
 
-/* cards grid */
-.cards-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-  max-width: 1300px;
-  width: 100%;
-  margin: 0 auto;
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .portals{grid-template-columns:1fr;max-width:500px;gap:1.2rem;}
+  .header{margin-bottom:3rem;}
+  .header-stats{flex-direction:column;border-radius:20px;gap:0;}
+  .hstat{border-right:none;border-bottom:1px solid rgba(255,255,255,0.06);width:100%;justify-content:center;}
+  .hstat:last-child{border-bottom:none;}
+}
+@media(max-width:550px){
+  .page{padding:2.5rem 1rem 4rem;}
+  .main-title{font-size:3rem;}
+  .logo-mark{width:72px;height:72px;border-radius:22px;}
+  .portal-card{padding:1.6rem 1.5rem 1.5rem;}
+  .card-num{font-size:42px;top:1.4rem;right:1.4rem;}
 }
 
-.card-modern {
-  background: var(--bg-card);
-  backdrop-filter: blur(14px);
-  border-radius: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  transition: var(--transition-smooth);
-  overflow: hidden;
-  position: relative;
-  text-decoration: none;
-  display: flex;
-  flex-direction: column;
-  padding: 2rem 1.8rem;
-  box-shadow: 0 20px 40px -15px rgba(0,0,0,0.3);
+/* ── LOADING RIPPLE ── */
+.portal-card{animation:cardIn 0.7s var(--ease) both;}
+.portal-card:nth-child(1){animation-delay:0.35s;}
+.portal-card:nth-child(2){animation-delay:0.5s;}
+.portal-card:nth-child(3){animation-delay:0.65s;}
+@keyframes cardIn{
+  from{opacity:0;transform:translateY(32px) scale(0.97);}
+  to{opacity:1;transform:translateY(0) scale(1);}
 }
 
-.card-modern::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 0% 30%, rgba(219,180,44,0.08), transparent 70%);
-  opacity: 0;
-  transition: opacity 0.5s;
+/* ── GOLD PULSE LINE ── */
+.pulse-line{
+  width:60px;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  margin:1.4rem auto 0;
+  animation:pulseLine 2.5s ease-in-out infinite;
 }
-
-.card-modern:hover {
-  transform: translateY(-8px);
-  border-color: rgba(219, 180, 44, 0.5);
-  box-shadow: 0 30px 50px -20px rgba(0,0,0,0.5), 0 0 0 1px rgba(219,180,44,0.2);
-}
-
-.card-modern:hover::before {
-  opacity: 1;
-}
-
-.card-icon-wrap {
-  width: 70px;
-  height: 70px;
-  border-radius: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 30px;
-  margin-bottom: 1.6rem;
-  transition: var(--transition-smooth);
-}
-
-.admin-icon { background: rgba(246, 92, 92, 0.12); color: #f65c5c; border: 1px solid rgba(246,92,92,0.3); }
-.sellers-icon { background: rgba(46, 204, 113, 0.12); color: #2ecc71; border: 1px solid rgba(46,204,113,0.3); }
-.dc-icon { background: rgba(219, 180, 44, 0.12); color: #dbb42c; border: 1px solid rgba(219,180,44,0.3); }
-
-.card-modern:hover .card-icon-wrap {
-  transform: scale(1.05);
-  filter: drop-shadow(0 0 8px rgba(219,180,44,0.3));
-}
-
-.role-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(255,255,255,0.03);
-  padding: 0.25rem 1rem;
-  border-radius: 40px;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 1px;
-  width: fit-content;
-  margin-bottom: 1rem;
-  backdrop-filter: blur(4px);
-}
-
-.role-admin { color: #f65c5c; border-left: 2px solid #f65c5c; background: rgba(246,92,92,0.05); }
-.role-sellers { color: #2ecc71; border-left: 2px solid #2ecc71; background: rgba(46,204,113,0.05); }
-.role-dc { color: #dbb42c; border-left: 2px solid #dbb42c; background: rgba(219,180,44,0.05); }
-
-.card-title-modern {
-  font-size: 1.7rem;
-  font-weight: 800;
-  margin-bottom: 0.5rem;
-  letter-spacing: -0.3px;
-}
-
-.desc-modern {
-  color: var(--text-secondary);
-  font-size: 0.85rem;
-  line-height: 1.45;
-  margin-bottom: 1.2rem;
-}
-
-.feature-list {
-  list-style: none;
-  margin: 0.8rem 0 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-}
-
-.feature-list li {
-  display: flex;
-  align-items: center;
-  gap: 0.7rem;
-  font-size: 0.8rem;
-  color: var(--text-secondary);
-}
-
-.feature-list li i {
-  font-size: 0.6rem;
-  color: var(--gold-primary);
-}
-
-.btn-modern {
-  width: 100%;
-  padding: 0.9rem 0;
-  border: none;
-  border-radius: 1.2rem;
-  font-weight: 700;
-  font-size: 0.85rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.6rem;
-  cursor: pointer;
-  font-family: 'Inter', sans-serif;
-  transition: all 0.25s ease;
-  margin-top: auto;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  color: white;
-}
-
-.btn-admin:hover { background: #f65c5c; border-color: #f65c5c; color: white; box-shadow: 0 8px 18px rgba(246,92,92,0.3); }
-.btn-sellers:hover { background: #2ecc71; border-color: #2ecc71; color: #0a0c12; box-shadow: 0 8px 18px rgba(46,204,113,0.35); }
-.btn-dc:hover { background: #dbb42c; border-color: #dbb42c; color: #0a0c12; box-shadow: 0 8px 18px rgba(219,180,44,0.4); }
-
-.card-modern .btn-modern i {
-  transition: transform 0.2s;
-}
-
-.card-modern:hover .btn-modern i {
-  transform: translateX(4px);
-}
-
-/* footer */
-.futuristic-footer {
-  margin-top: 4rem;
-  text-align: center;
-  font-size: 0.7rem;
-  color: var(--text-muted);
-  backdrop-filter: blur(12px);
-  background: rgba(5, 7, 12, 0.3);
-  padding: 1rem 2rem;
-  border-radius: 60px;
-  display: inline-flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-  justify-content: center;
-  border: 1px solid rgba(255,255,255,0.03);
-}
-
-.futuristic-footer i {
-  color: var(--gold-primary);
-  margin: 0 2px;
-}
-
-/* mobile responsive */
-@media (max-width: 960px) {
-  .cards-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    max-width: 550px;
-  }
-  .hero-section {
-    margin-bottom: 1.8rem;
-  }
-  .stats-modern {
-    gap: 1rem;
-  }
-  .stat-item {
-    padding: 0.3rem 1rem;
-  }
-  .stat-number {
-    font-size: 1.4rem;
-  }
-  .card-modern {
-    padding: 1.5rem;
-  }
-  .card-title-modern {
-    font-size: 1.4rem;
-  }
-}
-
-@media (max-width: 550px) {
-  .portal {
-    padding: 1.8rem 1rem;
-  }
-  .glass-logo {
-    width: 72px;
-    height: 72px;
-    border-radius: 24px;
-  }
-  .glass-logo i {
-    font-size: 32px;
-  }
-  .stats-modern {
-    width: 100%;
-    justify-content: space-between;
-  }
-  .stat-item {
-    padding: 0.2rem 0.8rem;
-  }
-  .stat-number {
-    font-size: 1.2rem;
-  }
-  .stat-label {
-    font-size: 0.6rem;
-  }
-}
-
-@keyframes fadeSlideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-24px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* glow text */
-.gold-text {
-  color: var(--gold-primary);
-  font-weight: 600;
+@keyframes pulseLine{
+  0%,100%{opacity:0.3;width:40px;}
+  50%{opacity:1;width:80px;}
 }
 </style>
 </head>
 <body>
 
-<div class="kinetic-bg">
-  <div class="gradient-orb orb1"></div>
-  <div class="gradient-orb orb2"></div>
-  <div class="gradient-orb orb3"></div>
-  <div class="grid-pattern"></div>
+<!-- Ambient Background -->
+<div class="ambient">
+  <div class="amb-noise"></div>
+  <div class="amb-mesh"></div>
+  <div class="amb-grid"></div>
+  <div class="amb-vignette"></div>
 </div>
 
-<div class="portal">
-  <div class="hero-section">
-    <div class="glass-logo">
-      <i class="fas fa-crown"></i>
+<div class="page">
+
+  <!-- ── HEADER ── -->
+  <header class="header">
+    <div class="logo-mark">
+      <img src="image-removebg-preview.png" alt="UAE Properties" 
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <span class="logo-mark-fallback" style="display:none"><i class="fas fa-crown"></i></span>
     </div>
-    <h1 class="hero-title">UAE Properties</h1>
-    <div class="hero-badge">
-      <i class="fas fa-gem"></i> PREMIUM REAL ESTATE ECOSYSTEM
+
+    <p class="eyebrow"><i class="fas fa-gem" style="font-size:8px;margin-right:6px"></i>Premium Real Estate Ecosystem</p>
+
+    <h1 class="main-title">
+      <span class="line1">UAE</span>
+      <span class="line2">Properties</span>
+    </h1>
+
+    <p class="subtitle">A unified platform for premium property discovery, management &amp; collaboration across all 7 Emirates.</p>
+
+    <div class="header-stats">
+      <div class="hstat"><i class="fas fa-layer-group"></i><strong>3</strong>&nbsp;Dashboards</div>
+      <div class="hstat"><i class="fas fa-map-marker-alt"></i><strong>7</strong>&nbsp;Emirates</div>
+      <div class="hstat"><i class="fas fa-shield-alt"></i>Encrypted Access</div>
     </div>
-    <div class="stats-modern">
-      <div class="stat-item">
-        <span class="stat-number">3</span>
-        <span class="stat-label">Dashboards</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-number">✦</span>
-        <span class="stat-label">7 Emirates</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-number">∞</span>
-        <span class="stat-label">Smart Access</span>
-      </div>
-    </div>
+
+    <div class="pulse-line"></div>
+  </header>
+
+  <!-- ── SECTION RULE ── -->
+  <div class="section-rule">
+    <div class="rule-line"></div>
+    <div class="rule-label"><i class="fas fa-fingerprint" style="margin-right:6px;font-size:8px"></i>Select Your Role</div>
+    <div class="rule-line"></div>
   </div>
 
-  <div class="glass-divider">
-    <div class="line"></div>
-    <span><i class="fas fa-fingerprint"></i> AUTHENTICATE ROLE</span>
-    <div class="line"></div>
-  </div>
+  <!-- ── PORTAL CARDS ── -->
+  <div class="portals">
 
-  <div class="cards-grid">
-    <!-- ADMIN CARD -->
-    <a class="card-modern" href="admin.html">
-      <div class="card-icon-wrap admin-icon">
-        <i class="fas fa-shield-halved"></i>
-      </div>
-      <div class="role-tag role-admin">
-        <i class="fas fa-crown"></i> SUPER ADMIN
-      </div>
-      <div class="card-title-modern">Admin</div>
-      <p class="desc-modern">Complete governance — approve listings, manage all accounts, full analytics & system control.</p>
-      <ul class="feature-list">
-        <li><i class="fas fa-bolt"></i> Approve / reject listings</li>
-        <li><i class="fas fa-bolt"></i> Manage users & credentials</li>
-        <li><i class="fas fa-bolt"></i> Real-time notifications</li>
-        <li><i class="fas fa-bolt"></i> Global property oversight</li>
+    <!-- ADMIN -->
+    <a class="portal-card" href="admin.html">
+      <span class="card-num">01</span>
+      <div class="card-icon icon-red"><i class="fas fa-shield-halved"></i></div>
+      <div class="role-chip chip-red"><i class="fas fa-crown" style="font-size:8px"></i>Super Admin</div>
+      <div class="card-title">Admin</div>
+      <div class="card-desc">Full governance, approval controls, and complete system oversight across all listings and users.</div>
+      <div class="card-sep"></div>
+      <ul class="features">
+        <li class="feat"><span class="feat-dot"></span>Approve & reject listings</li>
+        <li class="feat"><span class="feat-dot"></span>Manage user credentials</li>
+        <li class="feat"><span class="feat-dot"></span>Real-time notifications</li>
+        <li class="feat"><span class="feat-dot"></span>Global property oversight</li>
       </ul>
-      <div class="btn-modern btn-admin">
-        <i class="fas fa-arrow-right"></i> Access Admin
+      <div class="card-cta cta-red">
+        <i class="fas fa-arrow-right"></i> Enter Admin Panel
       </div>
     </a>
 
-    <!-- SELLERS CARD (fixed spelling) -->
-    <a class="card-modern" href="sallers.html">
-      <div class="card-icon-wrap sellers-icon">
-        <i class="fas fa-chart-line"></i>
-      </div>
-      <div class="role-tag role-sellers">
-        <i class="fas fa-store"></i> SELLERS
-      </div>
-      <div class="card-title-modern">Sellers</div>
-      <p class="desc-modern">Powerful listing exposure, share properties, generate PDFs & connect with buyers instantly.</p>
-      <ul class="feature-list">
-        <li><i class="fas fa-bolt"></i> Browse all approved properties</li>
-        <li><i class="fas fa-bolt"></i> Download image PDFs</li>
-        <li><i class="fas fa-bolt"></i> Advanced smart filters</li>
-        <li><i class="fas fa-bolt"></i> Direct contact dashboard</li>
+    <!-- SELLERS -->
+    <a class="portal-card" href="sallers.html">
+      <span class="card-num">02</span>
+      <div class="card-icon icon-green"><i class="fas fa-chart-line"></i></div>
+      <div class="role-chip chip-green"><i class="fas fa-store" style="font-size:8px"></i>Sellers</div>
+      <div class="card-title">Sellers</div>
+      <div class="card-desc">Discover, filter and share premium listings. Generate PDFs and connect with buyers instantly.</div>
+      <div class="card-sep"></div>
+      <ul class="features">
+        <li class="feat"><span class="feat-dot"></span>Browse approved properties</li>
+        <li class="feat"><span class="feat-dot"></span>Download image PDFs</li>
+        <li class="feat"><span class="feat-dot"></span>Advanced smart filters</li>
+        <li class="feat"><span class="feat-dot"></span>Direct contact dashboard</li>
       </ul>
-      <div class="btn-modern btn-sellers">
-        <i class="fas fa-arrow-right"></i> Sellers Portal
+      <div class="card-cta cta-green">
+        <i class="fas fa-arrow-right"></i> Enter Sellers Portal
       </div>
     </a>
 
-    <!-- DATA COLLECTOR CARD -->
-    <a class="card-modern" href="data_collector.html">
-      <div class="card-icon-wrap dc-icon">
-        <i class="fas fa-cloud-upload-alt"></i>
-      </div>
-      <div class="role-tag role-dc">
-        <i class="fas fa-database"></i> DATA COLLECTOR
-      </div>
-      <div class="card-title-modern">Data Collector</div>
-      <p class="desc-modern">Upload new listings, manage media, track submission status & grow portfolio.</p>
-      <ul class="feature-list">
-        <li><i class="fas fa-bolt"></i> Create personal account</li>
-        <li><i class="fas fa-bolt"></i> Add high-res images & video</li>
-        <li><i class="fas fa-bolt"></i> Integrated map location</li>
-        <li><i class="fas fa-bolt"></i> Instant property draft saving</li>
+    <!-- DATA COLLECTOR -->
+    <a class="portal-card" href="data_collector.html">
+      <span class="card-num">03</span>
+      <div class="card-icon icon-gold"><i class="fas fa-cloud-arrow-up"></i></div>
+      <div class="role-chip chip-gold"><i class="fas fa-database" style="font-size:8px"></i>Data Collector</div>
+      <div class="card-title">Data Collector</div>
+      <div class="card-desc">Upload new listings, manage high-res media, add map locations and track submissions.</div>
+      <div class="card-sep"></div>
+      <ul class="features">
+        <li class="feat"><span class="feat-dot"></span>Create personal account</li>
+        <li class="feat"><span class="feat-dot"></span>Add images &amp; video</li>
+        <li class="feat"><span class="feat-dot"></span>Integrated map location</li>
+        <li class="feat"><span class="feat-dot"></span>Nearby places management</li>
       </ul>
-      <div class="btn-modern btn-dc">
-        <i class="fas fa-arrow-right"></i> DC Workspace
+      <div class="card-cta cta-gold">
+        <i class="fas fa-arrow-right"></i> Enter DC Workspace
       </div>
     </a>
+
   </div>
 
-  <div class="futuristic-footer">
-    <span><i class="fas fa-copyright"></i> 2025 UAE PROPERTIES</span>
-    <span><i class="fas fa-certificate"></i> Gold Standard Real Estate</span>
-    <span><i class="fas fa-shield-alt"></i> Encrypted Access</span>
-  </div>
+  <!-- ── FOOTER ── -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <span><i class="fas fa-copyright"></i> 2025 UAE Properties</span>
+      <span><i class="fas fa-certificate"></i> Gold Standard Real Estate</span>
+      <span><i class="fas fa-shield-alt"></i> Secure Platform</span>
+    </div>
+  </footer>
+
 </div>
 
 <script>
-  document.querySelectorAll('.card-modern').forEach(card => {
-    card.addEventListener('click', (e) => {
-      // if button inside card is clicked, don't double fire but it's fine.
-    });
+document.querySelectorAll('.portal-card').forEach(card=>{
+  card.addEventListener('mouseenter',()=>{
+    const num=card.querySelector('.card-num');
+    if(num) num.style.transform='scale(1.05) translateY(-3px)';
   });
-  // smooth micro-interactions
-  const btns = document.querySelectorAll('.btn-modern');
-  btns.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const parentCard = btn.closest('.card-modern');
-      if(parentCard && parentCard.href) {
-        window.location.href = parentCard.href;
-      }
-    });
+  card.addEventListener('mouseleave',()=>{
+    const num=card.querySelector('.card-num');
+    if(num) num.style.transform='';
   });
+});
 </script>
 
-<!-- Tawk.to Live Chat Embedded -->
+<!-- Tawk.to Live Chat -->
 <script>
-  var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
-  (function () {
-    var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
-    s1.async = true;
-    s1.src = 'https://embed.tawk.to/69eb77617bef1a1c30ae69b1/1jmvsklu9';
-    s1.charset = 'UTF-8';
-    s1.setAttribute('crossorigin', '*');
-    s0.parentNode.insertBefore(s1, s0);
-  })();
+var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
+(function(){
+  var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+  s1.async=true;
+  s1.src='https://embed.tawk.to/69eb77617bef1a1c30ae69b1/1jmvsklu9';
+  s1.charset='UTF-8';
+  s1.setAttribute('crossorigin','*');
+  s0.parentNode.insertBefore(s1,s0);
+})();
 </script>
+
 </body>
 </html>
