@@ -422,19 +422,19 @@
                         <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-bottom:0.8rem">
                             <div>
                                 <label style="display:block;font-size:12px;color:var(--text-secondary);margin-bottom:4px">Full Name</label>
-                                <input type="text" id="adminNewName" placeholder="e.g., Ahmed Ali" style="width:100%;padding:0.65rem 0.8rem;background:var(--bg-card);border:2px solid var(--border);border-radius:10px;color:#fff;font-size:14px;font-family:Poppins,sans-serif;box-sizing:border-box">
+                                <input type="text" id="adminNewName" placeholder="e.g., Ahmed Ali" style="width:100%;padding:0.65rem 0.8rem;background:var(--bg-card);border:2px solid var(--border);border-radius:10px;color:#333;font-size:14px;font-family:Poppins,sans-serif;box-sizing:border-box">
                             </div>
                             <div>
                                 <label style="display:block;font-size:12px;color:var(--text-secondary);margin-bottom:4px">Username *</label>
-                                <input type="text" id="adminNewUsername" placeholder="e.g., ahmed123" style="width:100%;padding:0.65rem 0.8rem;background:var(--bg-card);border:2px solid var(--border);border-radius:10px;color:#fff;font-size:14px;font-family:Poppins,sans-serif;box-sizing:border-box">
+                                <input type="text" id="adminNewUsername" placeholder="e.g., ahmed123" style="width:100%;padding:0.65rem 0.8rem;background:var(--bg-card);border:2px solid var(--border);border-radius:10px;color:#333;font-size:14px;font-family:Poppins,sans-serif;box-sizing:border-box">
                             </div>
                             <div>
                                 <label style="display:block;font-size:12px;color:var(--text-secondary);margin-bottom:4px">Password *</label>
-                                <input type="password" id="adminNewPassword" placeholder="Min 4 characters" style="width:100%;padding:0.65rem 0.8rem;background:var(--bg-card);border:2px solid var(--border);border-radius:10px;color:#fff;font-size:14px;font-family:Poppins,sans-serif;box-sizing:border-box">
+                                <input type="password" id="adminNewPassword" placeholder="Min 4 characters" style="width:100%;padding:0.65rem 0.8rem;background:var(--bg-card);border:2px solid var(--border);border-radius:10px;color:#333;font-size:14px;font-family:Poppins,sans-serif;box-sizing:border-box">
                             </div>
                             <div>
                                 <label style="display:block;font-size:12px;color:var(--text-secondary);margin-bottom:4px">Confirm Password *</label>
-                                <input type="password" id="adminNewConfirmPass" placeholder="Repeat password" style="width:100%;padding:0.65rem 0.8rem;background:var(--bg-card);border:2px solid var(--border);border-radius:10px;color:#fff;font-size:14px;font-family:Poppins,sans-serif;box-sizing:border-box">
+                                <input type="password" id="adminNewConfirmPass" placeholder="Repeat password" style="width:100%;padding:0.65rem 0.8rem;background:var(--bg-card);border:2px solid var(--border);border-radius:10px;color:#333;font-size:14px;font-family:Poppins,sans-serif;box-sizing:border-box">
                             </div>
                         </div>
                         <button onclick="adminAddDCUser()" style="width:100%;padding:0.75rem;background:var(--primary);color:#000;border:none;border-radius:10px;font-weight:700;font-size:14px;cursor:pointer;font-family:Poppins,sans-serif;display:flex;align-items:center;justify-content:center;gap:8px">
@@ -710,10 +710,10 @@
             container.innerHTML = accounts.map((a, i) => `
                 <div style="background:var(--bg-card);border:1.5px solid var(--border);border-radius:14px;padding:14px 16px;margin-bottom:10px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
                     <div style="width:40px;height:40px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:50%;display:flex;align-items:center;justify-content:center;color:#000;font-weight:700;font-size:16px;flex-shrink:0">
-                        ${(a.name || a.username).charAt(0).toUpperCase()}
+                        ${((a.name || a.username) || 'U').charAt(0).toUpperCase()}
                     </div>
                     <div style="flex:1;min-width:0">
-                        <div style="font-weight:600;color:#fff;font-size:14px">${a.name || '—'}</div>
+                        <div style="font-weight:600;color:#fff;font-size:14px">${(a.name && a.name.trim()) ? a.name : '<span style="color:#aaa;font-style:italic">No name set</span>'}</div>
                         <div style="font-size:12px;color:var(--text-muted)">@${a.username}</div>
                         <div style="font-size:11px;color:var(--text-muted);margin-top:2px">Password: <span style="color:var(--primary);font-weight:600">${a.password}</span></div>
                     </div>
