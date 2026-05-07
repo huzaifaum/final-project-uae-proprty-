@@ -929,8 +929,11 @@
       if (idx === -1) { alert('Account not found.'); return; }
       accounts[idx].password = newP;
       saveAllAccounts(accounts);
+      // ✅ FIX: session bhi update karo taake next auto-login pe naya password kaam kare
+      currentUser = { ...currentUser };
+      sessionStorage.setItem('currentUser_user', JSON.stringify(currentUser));
       closeChangeCredentials();
-      showToast('Password updated successfully!');
+      showToast('✓ Password successfully updated!');
     }
 
     // ===== AUTO SESSION =====
